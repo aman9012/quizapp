@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #main{
+            background-color: aquamarine;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        #box{
+            width: 500px;
+            height: max-content;
+            background-color: white;
+            border: 2px solid black;
+            padding: 23px;
+        }
+        .row{
+            margin-bottom: 10px;
+            font-size: large;
+            font-weight: bold;
+        }
+        #btn{
+            width: 100%;
+            padding: 10px;
+            background-color: aquamarine;
+            color: black;
+            font-size: larger;
+            font-weight: 550;
+            text-transform: uppercase;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="main">
+        <div id="box">
+            <h2 id="quebox"> Q-1) This is the question </h2>
+            <div class="row"> 
+                <input type="radio" name="checkbox" id="option1" value="a" class="options">
+                <label for="option1"> option 1 </label>
+            </div>
+            <div class="row"> 
+                <input type="radio" name="checkbox" id="option2" value="b" class="options">
+                <label for="option2"> option 2 </label>
+            </div>
+            <div class="row"> 
+                <input type="radio" name="checkbox" id="option3" value="c" class="options">
+                <label for="option3"> option 3 </label>
+            </div>
+            <div class="row"> 
+                <input type="radio" name="checkbox" id="option4" value="d" class="options">
+                <label for="option4"> option 4 </label>
+            </div>
+            <button id="btn"> submit </button>
+        </div>
+    </div>
+
+</body>
+    <script>
+        const questions = [
+        {
+            "que" : "how are you",
+            "a" : "good",
+            "b" : "bad",
+            "c" : "ok",
+            "d" : "fine",
+            "correct": "a"
+        },
+        {
+            "que" : "favourite color",
+            "a" : "red",
+            "b" : "black",
+            "c" : "blue",
+            "d" : "orange",
+            "correct": "b"
+        },
+        {
+            "que" : "favourite anime",
+            "a" : "One Piece",
+            "b" : "Naruto",
+            "c" : "Dragon Ball",
+            "d" : "Death Note",
+            "correct": "a"
+        },
+        {
+            "que" : "favourite fruite",
+            "a" : "Apple",
+            "b" : "Banana",
+            "c" : "Mango",
+            "d" : "strawberry",
+            "correct": "b"
+        }
+    ];
+        let index = 0;
+        let totalQue = questions.length;
+        let sahi = 0,
+            galat=0;
+        const quebox = document.getElementById('quebox');
+        var options = document.getElementsByClassName('options');
+        var btn = document.getElementById('btn');
+        let allInputs = document.querySelectorAll("input[type='radio']")
+        
+        
+        loadQue();
+        function loadQue(){
+            var data = questions[index];
+            if(index == totalQue){
+                return quizEnd(); 
+            }
+            
+            quebox.innerText = (index+1) + " - " + data.que;
+            options[0].nextElementSibling.innerText = data.a;
+            options[1].nextElementSibling.innerText = data.b;
+            options[2].nextElementSibling.innerText = data.c;
+            options[3].nextElementSibling.innerText = data.d;
+        }
+
+        
+        
+        btn.addEventListener("click",() => {
+            var data = questions[index];
+            if(ansplayer() == data.correct){
+                sahi++;
+            }
+            else{
+                galat++;
+            }
+            index++;
+            loadQue();
+            console.log(ansplayer());
+            clear();
+            function clear() {
+                allInputs.forEach((ele)=>{
+                    ele.checked = false;
+                })
+            }
+
+            });
+            
+        
+        const ansplayer = () =>{
+            let ans;
+            allInputs.forEach(function (elem){
+                if( elem.checked ){
+                    ans=elem.value 
+                }
+            })
+                    return ans;
+                }
+                  
+        function quizEnd(){
+            document.getElementById('box').innerText = "your score is " + sahi;
+            document.getElementById('box').style.textAlign = "center";
+        }
+    </script>    
+</html>
